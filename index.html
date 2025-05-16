@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Softec - Soluções em Gestão Empresarial</title>
+  <meta name="description" content="Desde 1983 desenvolvendo soluções integradas para maximizar resultados e minimizar riscos em empresas de todos os portes.">
+  
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Configuração do Tailwind -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            navy: {
+              50: '#f0f4f9',
+              100: '#d9e2ec',
+              200: '#bcccdc',
+              300: '#9fb3c8',
+              400: '#829ab1',
+              500: '#627d98',
+              600: '#486581',
+              700: '#334e68',
+              800: '#243b53',
+              900: '#102a43',
+            },
+            red: {
+              50: '#ffebee',
+              100: '#ffcdd2',
+              200: '#ef9a9a',
+              300: '#e57373',
+              400: '#ef5350',
+              500: '#f44336',
+              600: '#e53935',
+              700: '#d32f2f',
+              800: '#c62828',
+              900: '#b71c1c',
+            },
+          },
+          animation: {
+            'fade-in': 'fadeIn 0.8s ease-in-out forwards',
+            'slide-up': 'slideUp 0.6s ease-out forwards',
+            'pulse-slow': 'pulse 3s infinite',
+            'spin-slow': 'spin 15s linear infinite',
+            'float': 'float 6s ease-in-out infinite',
+            'card-appear': 'cardAppear 0.5s ease-out forwards',
+          },
+          keyframes: {
+            fadeIn: {
+              '0%': { opacity: '0' },
+              '100%': { opacity: '1' },
+            },
+            slideUp: {
+              '0%': { transform: 'translateY(20px)', opacity: '0' },
+              '100%': { transform: 'translateY(0)', opacity: '1' },
+            },
+            float: {
+              '0%, 100%': { transform: 'translateY(0)' },
+              '50%': { transform: 'translateY(-10px)' },
+            },
+            cardAppear: {
+              '0%': { opacity: '0', transform: 'scale(0.95) translateY(10px)' },
+              '100%': { opacity: '1', transform: 'scale(1) translateY(0)' },
+            },
+          },
+        }
+      }
+    }
+  </script>
+  
+  <!-- Font Awesome para ícones -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Estilos personalizados -->
+  <style>
+    /* Animações e transições */
+    .animate-on-scroll {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    
+    .animate-on-scroll.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .hover-scale {
+      transition: transform 0.3s ease;
+    }
+    
+    .hover-scale:hover {
+      transform: scale(1.03);
+    }
+    
+    .btn-transition {
+      transition: all 0.3s ease;
+    }
+    
+    /* Animação para os cards */
+    .card-hover {
+      transition: all 0.3s ease;
+    }
+    
+    .card-hover:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    }
+    
+    /* Animações específicas para a hero section */
+    .hero-card {
+      opacity: 0;
+      transform: scale(0.95) translateY(10px);
+    }
+    
+    .hero-card:nth-child(1) {
+      animation: cardAppear 0.5s ease-out 0.1s forwards;
+    }
+    
+    .hero-card:nth-child(2) {
+      animation: cardAppear 0.5s ease-out 0.3s forwards;
+    }
+    
+    .hero-card:nth-child(3) {
+      animation: cardAppear 0.5s ease-out 0.5s forwards;
+    }
+    
+    .hero-card:nth-child(4) {
+      animation: cardAppear 0.5s ease-out 0.7s forwards;
+    }
+    
+    @keyframes cardAppear {
+      0% {
+        opacity: 0;
+        transform: scale(0.95) translateY(10px);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
+    
+    .hero-float {
+      animation: float 6s ease-in-out infinite;
+    }
+    
+    .hero-glow {
+      animation: glow 4s ease-in-out infinite alternate;
+    }
+    
+    @keyframes glow {
+      from {
+        box-shadow: 0 0 10px -10px rgba(239, 68, 68, 0.5);
+      }
+      to {
+        box-shadow: 0 0 20px 5px rgba(239, 68, 68, 0.3);
+      }
+    }
+    
+    /* Estilos para o logo do radar */
+    .radar-logo-container {
+      position: relative;
+      width: 300px;
+      height: 300px;
+      background-color: white;
+      border-radius: 50%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+      transition: transform 0.5s ease;
+    }
+    
+    .radar-logo-container:hover {
+      transform: scale(1.05);
+    }
+    
+    .radar-text {
+      font-size: 48px;
+      font-weight: 700;
+      color: #444444;
+      line-height: 1;
+      position: relative;
+      z-index: 2;
+    }
+    
+    .empresarial-text {
+      font-size: 24px;
+      font-weight: 400;
+      color: #666666;
+      margin-top: -5px;
+      position: relative;
+      z-index: 2;
+    }
+    
+    .red-swoosh {
+      position: absolute;
+      top: 50%;
+      right: 40px;
+      width: 80px;
+      height: 80px;
+      border-radius: 0 100% 100% 0;
+      border: 12px solid #d32f2f;
+      border-left: none;
+      transform: translateY(-50%);
+      z-index: 1;
+    }
+  </style>
+</head>
+<body class="bg-white text-gray-900">
+  <div class="flex flex-col min-h-screen">
+    <header class="sticky top-0 z-50 w-full border-b bg-white/90 backdrop-blur-md">
+      <div class="container mx-auto px-4 flex h-16 items-center justify-between">
+        <div class="flex items-center gap-2">
+          <img src="logoS2.png" alt="Softec Logo" class="h-10 w-auto">
+        </div>
+        <nav class="hidden md:flex gap-6">
+          <a href="#sobre" class="text-sm font-medium text-gray-700 hover:text-navy-600 transition-colors duration-300">Sobre</a>
+          <a href="#radar" class="text-sm font-medium text-gray-700 hover:text-navy-600 transition-colors duration-300">Radar ERP</a>
+          <a href="#diferenciais" class="text-sm font-medium text-gray-700 hover:text-navy-600 transition-colors duration-300">Diferenciais</a>
+          <a href="#modulos" class="text-sm font-medium text-gray-700 hover:text-navy-600 transition-colors duration-300">Módulos</a>
+          <a href="#clientes" class="text-sm font-medium text-gray-700 hover:text-navy-600 transition-colors duration-300">Clientes</a>
+          <a href="https://webmail.metaweb.com.br" target="_blank" class="text-sm font-medium text-gray-700 hover:text-navy-600 transition-colors duration-300">Webmail</a>
+        </nav>
+        <a href="#contato" class="bg-navy-700 hover:bg-navy-800 text-white px-4 py-2 rounded-md btn-transition">Fale Conosco</a>
+      </div>
+    </header>
+
+    <main class="flex-1">
+      <!-- Nova Hero Section - Lado esquerdo estático, lado direito animado -->
+      <section class="relative py-20 overflow-hidden bg-gradient-to-br from-navy-900 via-navy-800 to-navy-900">
+        <!-- Elementos decorativos -->
+        <div class="absolute inset-0 opacity-10">
+          <div class="absolute top-20 left-10 w-64 h-64 rounded-full bg-navy-500 animate-pulse-slow"></div>
+          <div class="absolute bottom-10 right-10 w-96 h-96 rounded-full bg-navy-500 animate-pulse-slow"></div>
+          <div class="absolute top-40 right-20 w-32 h-32 rounded-full bg-red-500 animate-pulse-slow"></div>
+        </div>
+
+        <div class="container mx-auto px-4 relative z-10">
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <!-- Lado esquerdo - ESTÁTICO (sem animações) -->
+            <div>
+              <div class="inline-block px-4 py-1 mb-6 rounded-full bg-navy-700 text-navy-100 text-sm font-medium">
+                Desde 1983 no mercado
+              </div>
+              <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-white leading-tight">
+                Transforme sua <span class="text-red-500">gestão empresarial</span> com soluções integradas
+              </h1>
+              <p class="text-lg text-navy-100 mb-8 max-w-lg">
+                Desenvolvemos soluções que maximizam resultados e minimizam riscos para empresas de todos os portes.
+              </p>
+              <div class="flex flex-col sm:flex-row gap-4">
+                <a href="#radar" class="inline-flex items-center justify-center bg-red-600 hover:bg-red-700 text-white border-none px-4 py-2 rounded-md btn-transition">
+                  Conheça nossas soluções
+                  <i class="fas fa-arrow-right ml-2 text-sm"></i>
+                </a>
+                <a href="#contato" class="inline-flex items-center justify-center border border-navy-300 text-navy-100 hover:bg-navy-700 px-4 py-2 rounded-md btn-transition">
+                  Solicitar Demonstração
+                </a>
+              </div>
+            </div>
+
+            <!-- Lado direito - ANIMADO -->
+            <div class="relative hero-float">
+              <div class="relative z-10 bg-white/10 backdrop-blur-sm p-8 rounded-xl shadow-2xl hero-glow">
+                <div class="grid grid-cols-2 gap-6">
+                  <div class="bg-white/10 backdrop-blur-sm p-6 rounded-lg card-hover hero-card">
+                    <i class="fas fa-desktop text-red-500 text-2xl mb-4"></i>
+                    <h3 class="text-lg font-semibold text-white mb-2">Gestão Integrada</h3>
+                    <p class="text-navy-100 text-sm">Todos os processos da sua empresa em uma única plataforma</p>
+                  </div>
+                  <div class="bg-white/10 backdrop-blur-sm p-6 rounded-lg card-hover hero-card">
+                    <i class="fas fa-chart-line text-red-500 text-2xl mb-4"></i>
+                    <h3 class="text-lg font-semibold text-white mb-2">Análise de Dados</h3>
+                    <p class="text-navy-100 text-sm">Relatórios e dashboards para decisões estratégicas</p>
+                  </div>
+                  <div class="bg-white/10 backdrop-blur-sm p-6 rounded-lg card-hover hero-card">
+                    <i class="fas fa-shield-alt text-red-500 text-2xl mb-4"></i>
+                    <h3 class="text-lg font-semibold text-white mb-2">Segurança Total</h3>
+                    <p class="text-navy-100 text-sm">Proteção e controle de acesso aos seus dados</p>
+                  </div>
+                  <div class="bg-white/10 backdrop-blur-sm p-6 rounded-lg card-hover hero-card">
+                    <i class="fas fa-globe text-red-500 text-2xl mb-4"></i>
+                    <h3 class="text-lg font-semibold text-white mb-2">Acesso Remoto</h3>
+                    <p class="text-navy-100 text-sm">Gerencie sua empresa de qualquer lugar do mundo</p>
+                  </div>
+                </div>
+              </div>
+              <div class="absolute -bottom-6 -right-6 w-24 h-24 bg-red-500 rounded-full opacity-50 blur-xl animate-pulse-slow"></div>
+              <div class="absolute -top-6 -left-6 w-32 h-32 bg-navy-500 rounded-full opacity-50 blur-xl animate-pulse-slow"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Sobre Section -->
+      <section id="sobre" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+          <div class="max-w-3xl mx-auto text-center mb-16 animate-on-scroll">
+            <div class="inline-block px-3 py-1 mb-4 rounded-full bg-navy-100 text-navy-700 text-sm font-medium">
+              Nossa História
+            </div>
+            <h2 class="text-3xl md:text-4xl font-bold mb-6 text-navy-900">Sobre a Softec</h2>
+            <div class="w-20 h-1 bg-red-500 mx-auto mb-8"></div>
+            <p class="text-gray-700 mb-6 text-lg">
+              Fundada em 1983 em Belém-PA, a SOFTEC iniciou suas atividades no desenvolvimento de softwares,
+              expandindo para comercialização, implantação e treinamentos de aplicativos nas áreas Contábil,
+              Financeira, Fiscal e Patrimonial.
+            </p>
+            <p class="text-gray-700 text-lg">
+              Com longa experiência no mercado, atendemos empresas de diversas atividades, incluindo o Terceiro Setor,
+              sempre com eficiência e ética.
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="bg-navy-50 p-8 rounded-xl shadow-sm animate-on-scroll card-hover">
+              <div class="w-12 h-12 bg-navy-100 rounded-full flex items-center justify-center mb-6">
+                <i class="fas fa-briefcase text-navy-700"></i>
+              </div>
+              <h3 class="text-xl font-semibold mb-4 text-navy-900">Experiência</h3>
+              <p class="text-gray-700">
+                Mais de 40 anos de experiência no mercado de desenvolvimento de software e soluções empresariais.
+              </p>
+            </div>
+
+            <div class="bg-navy-50 p-8 rounded-xl shadow-sm animate-on-scroll card-hover" style="animation-delay: 0.2s;">
+              <div class="w-12 h-12 bg-navy-100 rounded-full flex items-center justify-center mb-6">
+                <i class="fas fa-users text-navy-700"></i>
+              </div>
+              <h3 class="text-xl font-semibold mb-4 text-navy-900">Equipe Qualificada</h3>
+              <p class="text-gray-700">
+                Profissionais altamente capacitados para oferecer o melhor suporte e desenvolvimento de soluções.
+              </p>
+            </div>
+
+            <div class="bg-navy-50 p-8 rounded-xl shadow-sm animate-on-scroll card-hover" style="animation-delay: 0.4s;">
+              <div class="w-12 h-12 bg-navy-100 rounded-full flex items-center justify-center mb-6">
+                <i class="fas fa-check-circle text-navy-700"></i>
+              </div>
+              <h3 class="text-xl font-semibold mb-4 text-navy-900">Compromisso</h3>
+              <p class="text-gray-700">
+                Comprometimento com a qualidade e satisfação dos nossos clientes em todos os projetos.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- NOVA SEÇÃO RADAR - Com logo recriado em HTML/CSS -->
+      <section id="radar" class="py-20 bg-gradient-to-br from-navy-50 to-white">
+        <div class="container mx-auto px-4">
+          <div class="text-center mb-16 animate-on-scroll">
+            <div class="inline-block px-3 py-1 mb-4 rounded-full bg-navy-100 text-navy-700 text-sm font-medium">
+              Nossa Solução
+            </div>
+            <h2 class="text-3xl md:text-4xl font-bold mb-6 text-navy-900">ERP Radar Empresarial</h2>
+            <div class="w-20 h-1 bg-red-500 mx-auto mb-8"></div>
+            <p class="text-gray-700 max-w-3xl mx-auto text-lg">
+              Uma solução ERP completa que integra de maneira inteligente todas as áreas da empresa, adaptável às
+              necessidades e à realidade de empresas de todos os portes e segmentos.
+            </p>
+          </div>
+
+          <div class="flex flex-col lg:flex-row items-center gap-12">
+            <div class="lg:w-1/2 animate-on-scroll flex justify-center">
+              <!-- Logo do Radar recriado com HTML/CSS -->
+              <div class="radar-logo-container">
+                
+                <div class="radar-text">radar</div>
+                <div class="empresarial-text">empresarial</div>
+              </div>
+            </div>
+
+            <div class="lg:w-1/2 animate-on-scroll">
+              <h3 class="text-2xl font-bold mb-6 text-navy-900">Integração Completa para sua Empresa</h3>
+              <p class="text-gray-700 mb-6">
+                O ERP Radar Empresarial é uma solução completa que integra todas as áreas da sua empresa,
+                proporcionando mais agilidade, controle, segurança e eficiência à INDÚSTRIA, ao COMÉRCIO e aos
+                PRESTADORES DE SERVIÇOS.
+              </p>
+
+              <ul class="space-y-4">
+                <li class="flex items-start gap-3 animate-on-scroll" style="animation-delay: 0.1s;">
+                  <div class="mt-1 bg-navy-100 rounded-full p-1">
+                    <i class="fas fa-chevron-right text-navy-700 text-xs"></i>
+                  </div>
+                  <div>
+                    <h4 class="font-semibold text-navy-900">Comunicação integrada</h4>
+                    <p class="text-gray-600 text-sm">
+                      Entre empresas e filiais com integração total entre todos os processos
+                    </p>
+                  </div>
+                </li>
+
+                <li class="flex items-start gap-3 animate-on-scroll" style="animation-delay: 0.2s;">
+                  <div class="mt-1 bg-navy-100 rounded-full p-1">
+                    <i class="fas fa-chevron-right text-navy-700 text-xs"></i>
+                  </div>
+                  <div>
+                    <h4 class="font-semibold text-navy-900">Interface amigável</h4>
+                    <p class="text-gray-600 text-sm">
+                      Design intuitivo que facilita o uso por todos os colaboradores
+                    </p>
+                  </div>
+                </li>
+
+                <li class="flex items-start gap-3 animate-on-scroll" style="animation-delay: 0.3s;">
+                  <div class="mt-1 bg-navy-100 rounded-full p-1">
+                    <i class="fas fa-chevron-right text-navy-700 text-xs"></i>
+                  </div>
+                  <div>
+                    <h4 class="font-semibold text-navy-900">Gerenciamento remoto</h4>
+                    <p class="text-gray-600 text-sm">
+                      Acesso via Web para gerenciar sua empresa de qualquer lugar
+                    </p>
+                  </div>
+                </li>
+
+                <li class="flex items-start gap-3 animate-on-scroll" style="animation-delay: 0.4s;">
+                  <div class="mt-1 bg-navy-100 rounded-full p-1">
+                    <i class="fas fa-chevron-right text-navy-700 text-xs"></i>
+                  </div>
+                  <div>
+                    <h4 class="font-semibold text-navy-900">Conformidade fiscal</h4>
+                    <p class="text-gray-600 text-sm">
+                      Atendimento total à legislação fiscal e obrigações acessórias
+                    </p>
+                  </div>
+                </li>
+              </ul>
+
+              <a href="#contato" class="inline-block mt-8 bg-navy-700 hover:bg-navy-800 text-white px-4 py-2 rounded-md btn-transition">
+                Saiba mais sobre o Radar ERP
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Diferenciais Section -->
+      <section id="diferenciais" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+          <div class="text-center mb-16 animate-on-scroll">
+            <div class="inline-block px-3 py-1 mb-4 rounded-full bg-navy-100 text-navy-700 text-sm font-medium">
+              Por que nos escolher
+            </div>
+            <h2 class="text-3xl md:text-4xl font-bold mb-6 text-navy-900">Diferenciais do ERP Radar</h2>
+            <div class="w-20 h-1 bg-red-500 mx-auto mb-8"></div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+            <div class="bg-white p-8 rounded-xl shadow-md border border-gray-100 animate-on-scroll card-hover">
+              <div class="w-14 h-14 bg-navy-100 rounded-full flex items-center justify-center mb-6">
+                <i class="fas fa-chart-pie text-navy-700 text-xl"></i>
+              </div>
+              <h3 class="text-xl font-semibold mb-4 text-navy-900">Relatórios Gráficos</h3>
+              <p class="text-gray-600">
+                Visualize seus dados com gráficos interativos e relatórios personalizados para tomada de decisões.
+              </p>
+            </div>
+
+            <div class="bg-white p-8 rounded-xl shadow-md border border-gray-100 animate-on-scroll card-hover" style="animation-delay: 0.2s;">
+              <div class="w-14 h-14 bg-navy-100 rounded-full flex items-center justify-center mb-6">
+                <i class="fas fa-shield-alt text-navy-700 text-xl"></i>
+              </div>
+              <h3 class="text-xl font-semibold mb-4 text-navy-900">Segurança Avançada</h3>
+              <p class="text-gray-600">
+                Banco de dados robusto com controle de acesso personalizado e registro de todas as transações.
+              </p>
+            </div>
+
+            <div class="bg-white p-8 rounded-xl shadow-md border border-gray-100 animate-on-scroll card-hover" style="animation-delay: 0.4s;">
+              <div class="w-14 h-14 bg-navy-100 rounded-full flex items-center justify-center mb-6">
+                <i class="fas fa-cogs text-navy-700 text-xl"></i>
+              </div>
+              <h3 class="text-xl font-semibold mb-4 text-navy-900">Personalização Total</h3>
+              <p class="text-gray-600">
+                Adapte o sistema às necessidades específicas da sua empresa com campos e telas personalizáveis.
+              </p>
+            </div>
+
+            <div class="bg-white p-8 rounded-xl shadow-md border border-gray-100 animate-on-scroll card-hover" style="animation-delay: 0.2s;">
+              <div class="w-14 h-14 bg-navy-100 rounded-full flex items-center justify-center mb-6">
+                <i class="fas fa-globe text-navy-700 text-xl"></i>
+              </div>
+              <h3 class="text-xl font-semibold mb-4 text-navy-900">Acesso Web</h3>
+              <p class="text-gray-600">
+                Interfaces web para diversos processos de negócio, permitindo acesso de qualquer dispositivo.
+              </p>
+            </div>
+
+            <div class="bg-white p-8 rounded-xl shadow-md border border-gray-100 animate-on-scroll card-hover" style="animation-delay: 0.4s;">
+              <div class="w-14 h-14 bg-navy-100 rounded-full flex items-center justify-center mb-6">
+                <i class="fas fa-database text-navy-700 text-xl"></i>
+              </div>
+              <h3 class="text-xl font-semibold mb-4 text-navy-900">Baixo Investimento</h3>
+              <p class="text-gray-600">
+                Menor custo em infraestrutura de TI, hardware, software e pessoas para sua operação.
+              </p>
+            </div>
+
+            <div class="bg-white p-8 rounded-xl shadow-md border border-gray-100 animate-on-scroll card-hover" style="animation-delay: 0.6s;">
+              <div class="w-14 h-14 bg-navy-100 rounded-full flex items-center justify-center mb-6">
+                <i class="fas fa-check-circle text-navy-700 text-xl"></i>
+              </div>
+              <h3 class="text-xl font-semibold mb-4 text-navy-900">Suporte Especializado</h3>
+              <p class="text-gray-600">
+                Equipe de suporte dedicada para auxiliar em todas as etapas de implementação e uso.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- WK Section -->
+      <section class="py-20 bg-navy-50">
+        <div class="container mx-auto px-4">
+          <div class="text-center mb-16 animate-on-scroll">
+            <div class="inline-block px-3 py-1 mb-4 rounded-full bg-navy-100 text-navy-700 text-sm font-medium">
+              Nosso Parceiro
+            </div>
+            <h2 class="text-3xl md:text-4xl font-bold mb-6 text-navy-900">Parceria WK Sistemas</h2>
+            <div class="w-20 h-1 bg-red-500 mx-auto mb-8"></div>
+          </div>
+
+          <div class="flex flex-col md:flex-row items-center gap-12">
+            <div class="md:w-1/3 flex justify-center animate-on-scroll">
+              <!-- Logo da WK com link -->
+              <a href="https://wk.com.br" target="_blank" class="bg-white p-6 rounded-xl shadow-md flex items-center justify-center w-full max-w-xs hover-scale">
+                <img src="wk.png" alt="WK Sistemas Logo" class="max-w-full h-auto">
+              </a>
+            </div>
+
+            <div class="md:w-2/3 animate-on-scroll">
+              <p class="text-gray-700 mb-6 text-lg">
+                Com uma equipe experiente, inteligente e criativa, a WK desenvolveu o seu principal produto: o ERP
+                Radar Empresarial. Uma solução ERP completa, que integra de maneira inteligente todas as áreas da
+                empresa.
+              </p>
+              <p class="text-gray-700 mb-6">
+                Planejado e desenvolvido para facilitar processos, maximizar resultados e minimizar riscos, o ERP
+                Radar Empresarial inova pela eficiência dos resultados, pela usabilidade das ferramentas e pela
+                customização dos projetos.
+              </p>
+              <p class="text-gray-700">
+                O ERP Radar Empresarial e seus módulos proporcionam mais agilidade, controle, segurança e eficiência à
+                INDÚSTRIA, ao COMÉRCIO e aos PRESTADORES DE SERVIÇOS.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Módulos Section -->
+      <section id="modulos" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+          <div class="text-center mb-16 animate-on-scroll">
+            <div class="inline-block px-3 py-1 mb-4 rounded-full bg-navy-100 text-navy-700 text-sm font-medium">
+              Soluções Completas
+            </div>
+            <h2 class="text-3xl md:text-4xl font-bold mb-6 text-navy-900">Módulos Integrados</h2>
+            <div class="w-20 h-1 bg-red-500 mx-auto mb-8"></div>
+            <p class="text-gray-700 max-w-3xl mx-auto text-lg">
+              O ERP Radar Empresarial integra todas as áreas da sua empresa com módulos especializados.
+            </p>
+          </div>
+
+          <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
+            <!-- Vendas -->
+            <a href="https://wk.com.br/solucao/gestao-de-vendas/" target="_blank" class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 text-center hover:shadow-md transition-shadow animate-on-scroll card-hover">
+              <div class="w-12 h-12 bg-navy-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <i class="fas fa-shopping-cart text-navy-700"></i>
+              </div>
+              <h3 class="font-semibold text-navy-900">Vendas</h3>
+            </a>
+
+            <!-- Finanças -->
+            <a href="https://wk.com.br/solucao/gestao-de-financas/" target="_blank" class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 text-center hover:shadow-md transition-shadow animate-on-scroll card-hover" style="animation-delay: 0.1s;">
+              <div class="w-12 h-12 bg-navy-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <i class="fas fa-dollar-sign text-navy-700"></i>
+              </div>
+              <h3 class="font-semibold text-navy-900">Finanças</h3>
+            </a>
+
+            <!-- Produção (substituindo Materiais) -->
+            <a href="https://wk.com.br/solucao/gestao-de-producao/" target="_blank" class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 text-center hover:shadow-md transition-shadow animate-on-scroll card-hover" style="animation-delay: 0.2s;">
+              <div class="w-12 h-12 bg-navy-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <i class="fas fa-industry text-navy-700"></i>
+              </div>
+              <h3 class="font-semibold text-navy-900">Produção</h3>
+            </a>
+
+            <!-- RH -->
+            <a href="https://wk.com.br/solucao/gestao-de-rh/" target="_blank" class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 text-center hover:shadow-md transition-shadow animate-on-scroll card-hover" style="animation-delay: 0.3s;">
+              <div class="w-12 h-12 bg-navy-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <i class="fas fa-users text-navy-700"></i>
+              </div>
+              <h3 class="font-semibold text-navy-900">RH</h3>
+            </a>
+
+            <!-- Controladoria -->
+            <a href="https://wk.com.br/solucao/gestao-de-controladoria/" target="_blank" class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 text-center hover:shadow-md transition-shadow animate-on-scroll card-hover" style="animation-delay: 0.1s;">
+              <div class="w-12 h-12 bg-navy-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <i class="fas fa-database text-navy-700"></i>
+              </div>
+              <h3 class="font-semibold text-navy-900">Controladoria</h3>
+            </a>
+
+            <!-- Suprimentos (substituindo Web) -->
+            <a href="https://wk.com.br/solucao/gestao-de-suprimentos/" target="_blank" class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 text-center hover:shadow-md transition-shadow animate-on-scroll card-hover" style="animation-delay: 0.2s;">
+              <div class="w-12 h-12 bg-navy-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <i class="fas fa-boxes text-navy-700"></i>
+              </div>
+              <h3 class="font-semibold text-navy-900">Suprimentos</h3>
+            </a>
+
+            <!-- Serviços (substituindo BI) -->
+            <a href="https://wk.com.br/solucao/gestao-de-servicos/" target="_blank" class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 text-center hover:shadow-md transition-shadow animate-on-scroll card-hover" style="animation-delay: 0.3s;">
+              <div class="w-12 h-12 bg-navy-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <i class="fas fa-cogs text-navy-700"></i>
+              </div>
+              <h3 class="font-semibold text-navy-900">Serviços</h3>
+            </a>
+
+            <!-- Qualidade -->
+            <a href="https://wk.com.br/solucao/gestao-da-qualidade/" target="_blank" class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 text-center hover:shadow-md transition-shadow animate-on-scroll card-hover" style="animation-delay: 0.4s;">
+              <div class="w-12 h-12 bg-navy-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <i class="fas fa-check-circle text-navy-700"></i>
+              </div>
+              <h3 class="font-semibold text-navy-900">Qualidade</h3>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Clientes Section -->
+      <section id="clientes" class="py-20 bg-navy-50">
+        <div class="container mx-auto px-4">
+          <div class="text-center mb-16 animate-on-scroll">
+            <div class="inline-block px-3 py-1 mb-4 rounded-full bg-navy-100 text-navy-700 text-sm font-medium">
+              Quem Confia em Nós
+            </div>
+            <h2 class="text-3xl md:text-4xl font-bold mb-6 text-navy-900">Nossos Clientes</h2>
+            <div class="w-20 h-1 bg-red-500 mx-auto mb-8"></div>
+            <p class="text-gray-700 max-w-3xl mx-auto text-lg">
+              Empresas que confiam em nossas soluções para otimizar seus processos e resultados.
+            </p>
+          </div>
+
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
+            <!-- SOS Amazônia -->
+            <a href="https://sosamazonia.org.br" target="_blank" class="bg-white p-6 rounded-xl shadow-sm flex flex-col items-center justify-center h-40 border border-gray-100 hover:shadow-md transition-shadow animate-on-scroll card-hover">
+              <div class="h-24 flex items-center justify-center mb-2">
+                <img src="SOS-Amazonia-logo.jpg" alt="SOS Amazônia Logo" class="max-h-full">
+              </div>
+              <p class="text-sm font-medium text-navy-900 text-center">SOS Amazônia</p>
+            </a>
+
+            <!-- Instituto IEB -->
+            <a href="https://iieb.org.br" target="_blank" class="bg-white p-6 rounded-xl shadow-sm flex flex-col items-center justify-center h-40 border border-gray-100 hover:shadow-md transition-shadow animate-on-scroll card-hover" style="animation-delay: 0.2s;">
+              <div class="h-24 flex items-center justify-center mb-2">
+                <img src="ieb.png" alt="Instituto IEB Logo" class="max-h-full">
+              </div>
+              <p class="text-sm font-medium text-navy-900 text-center">Instituto IEB</p>
+            </a>
+
+            <!-- Instituto IFT -->
+            <a href="https://ift.org.br" target="_blank" class="bg-white p-6 rounded-xl shadow-sm flex flex-col items-center justify-center h-40 border border-gray-100 hover:shadow-md transition-shadow animate-on-scroll card-hover" style="animation-delay: 0.4s;">
+              <div class="h-24 flex items-center justify-center mb-2">
+                <img src="ift.png" alt="Instituto IFT Logo" class="max-h-full">
+              </div>
+              <p class="text-sm font-medium text-navy-900 text-center">Instituto IFT</p>
+            </a>
+
+            <!-- IMAZON -->
+            <a href="https://imazon.org.br" target="_blank" class="bg-white p-6 rounded-xl shadow-sm flex flex-col items-center justify-center h-40 border border-gray-100 hover:shadow-md transition-shadow animate-on-scroll card-hover" style="animation-delay: 0.6s;">
+              <div class="h-24 flex items-center justify-center mb-2">
+                <img src="imazon.png" alt="IMAZON Logo" class="max-h-full">
+              </div>
+              <p class="text-sm font-medium text-navy-900 text-center">IMAZON</p>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- CTA Section -->
+      <section class="py-20 bg-gradient-to-br from-navy-900 via-navy-800 to-navy-900 text-white">
+        <div class="container mx-auto px-4 text-center">
+          <h2 class="text-3xl md:text-4xl font-bold mb-6 animate-on-scroll">
+            Essencial para quem busca excelência em gestão empresarial
+          </h2>
+          <p class="text-lg mb-10 max-w-2xl mx-auto text-navy-100 animate-on-scroll" style="animation-delay: 0.2s;">
+            Conheça o ERP Radar Empresarial e transforme a gestão da sua empresa com uma solução completa e integrada.
+          </p>
+          <a href="#contato" class="inline-block bg-red-600 hover:bg-red-700 text-white text-lg px-8 py-6 rounded-xl btn-transition animate-on-scroll hover-scale" style="animation-delay: 0.4s;">
+            Solicitar Demonstração
+          </a>
+        </div>
+      </section>
+    </main>
+
+   <footer id="contato" class="bg-white text-navy-800 py-16 border-t border-gray-200">
+  <div class="container mx-auto px-4">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+      <div class="animate-on-scroll">
+        <img src="logoS.png" alt="Softec Logo" class="h-10 w-auto mb-6">
+        <p class="text-gray-600 mb-6">
+          Soluções em gestão empresarial desde 1983, oferecendo tecnologia e inovação para empresas de todos os
+          portes.
+        </p>
+      </div>
+
+      <div class="animate-on-scroll" style="animation-delay: 0.2s;">
+        <h3 class="text-xl font-semibold mb-6 text-navy-800">Informações</h3>
+        <div class="flex items-start gap-3 mb-4">
+          <i class="fas fa-map-marker-alt text-red-600 mt-1"></i>
+          <p class="text-gray-600">
+            Trav. Quintino Bocaiuva, 2624 – Sala/Altos - Cremação - Cep 66.045-320 - Belém-PA
+          </p>
+        </div>
+        <div class="flex items-start gap-3 mb-4">
+          <i class="fas fa-envelope text-red-600 mt-1"></i>
+          <p class="text-gray-600">
+            <a href="mailto:softec@softec-pa.com.br" class="hover:text-navy-700 transition-colors">softec@softec-pa.com.br</a>
+          </p>
+        </div>
+        <div class="flex items-start gap-3">
+          <i class="fas fa-phone text-red-600 mt-1"></i>
+          <p class="text-gray-600">
+            <a href="tel:+5591988435190" class="hover:text-navy-700 transition-colors">(91) 98843-5190</a>
+          </p>
+        </div>
+      </div>
+
+      <div class="animate-on-scroll" style="animation-delay: 0.4s;">
+        <h3 class="text-xl font-semibold mb-6 text-navy-800">Trabalhe Conosco</h3>
+        <p class="text-gray-600 mb-4">
+          Faça parte da nossa equipe! Envie seu currículo para:
+        </p>
+        <div class="flex items-center gap-3 mb-6">
+          <i class="fas fa-paper-plane text-red-600"></i>
+          <a href="mailto:softec@softec-pa.com.br" class="text-gray-600 hover:text-navy-700 transition-colors">
+            softec@softec-pa.com.br
+          </a>
+        </div>
+        <div class="mt-6">
+          <h4 class="font-medium mb-3 text-navy-700">Siga-nos</h4>
+          <div class="flex gap-4">
+            <a href="#" class="w-10 h-10 rounded-full bg-navy-100 flex items-center justify-center text-navy-700 hover:bg-navy-200 transition-colors">
+              <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="#" class="w-10 h-10 rounded-full bg-navy-100 flex items-center justify-center text-navy-700 hover:bg-navy-200 transition-colors">
+              <i class="fab fa-linkedin-in"></i>
+            </a>
+            <a href="#" class="w-10 h-10 rounded-full bg-navy-100 flex items-center justify-center text-navy-700 hover:bg-navy-200 transition-colors">
+              <i class="fab fa-instagram"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-12 pt-8 text-center border-t border-gray-200">
+      <div class="flex flex-col md:flex-row justify-between items-center">
+        <p class="text-gray-600">&copy; <script>document.write(new Date().getFullYear())</script> Softec. Todos os direitos reservados.</p>
+        <div class="mt-4 md:mt-0">
+          <a href="#" class="text-sm text-gray-500 hover:text-navy-700 mx-2 transition-colors">Política de Privacidade</a>
+          <a href="#" class="text-sm text-gray-500 hover:text-navy-700 mx-2 transition-colors">Termos de Uso</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+  </div>
+
+  <!-- Script para animações -->
+  <script>
+    // Função para verificar se um elemento está visível na viewport
+    function isElementInViewport(el) {
+      const rect = el.getBoundingClientRect();
+      return (
+        rect.top <= (window.innerHeight || document.documentElement.clientHeight) * 0.85
+      );
+    }
+    
+    // Função para mostrar elementos quando eles entram na viewport
+    function showElementsOnScroll() {
+      const elements = document.querySelectorAll('.animate-on-scroll:not(.show)');
+      elements.forEach(element => {
+        if (isElementInViewport(element)) {
+          element.classList.add('show');
+        }
+      });
+    }
+    
+    // Adicionar event listeners
+    window.addEventListener('scroll', showElementsOnScroll);
+    window.addEventListener('resize', showElementsOnScroll);
+    window.addEventListener('load', showElementsOnScroll);
+    
+    // Chamar a função uma vez para mostrar elementos que já estão visíveis
+    showElementsOnScroll();
+  </script>
+</body>
+</html>
